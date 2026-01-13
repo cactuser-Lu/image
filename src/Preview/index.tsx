@@ -329,22 +329,16 @@ const Preview: React.FC<PreviewProps> = props => {
 
   // >>>>> Effect: Keyboard
   const onKeyDown = useEvent((event: KeyboardEvent) => {
-    if (!open) {
+    if (!open || !showLeftOrRightSwitches || KeyCode.isEditableTarget(event)) {
       return;
     }
 
-    if (KeyCode.isEditableTarget(event)) {
-      return;
-    }
-
-    if (showLeftOrRightSwitches) {
-      if (event.key === 'ArrowLeft') {
-        onActive(-1);
-        event.preventDefault();
-      } else if (event.key === 'ArrowRight') {
-        onActive(1);
-        event.preventDefault();
-      }
+    if (event.key === 'ArrowLeft') {
+      onActive(-1);
+      event.preventDefault();
+    } else if (event.key === 'ArrowRight') {
+      onActive(1);
+      event.preventDefault();
     }
   });
 
